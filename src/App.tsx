@@ -11,7 +11,7 @@ import { FaCartShopping } from "react-icons/fa6";
 interface Product {
    name: string;
    image: string;
-   category: 'Coffee' | 'Milk Tea';
+   category: 'Coffee' | 'Milk Tea' | 'Frappe';
    prices: {
       S: number;
       M: number;
@@ -59,7 +59,7 @@ const App: React.FC = () => {
    const [quantity, setQuantity] = useState(1);
    const [selectedSize, setSelectedSize] = useState<'S' | 'M' | 'L'>('M');
    const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-   const [selectedCategory, setSelectedCategory] = useState<'Coffee' | 'Milk Tea'>('Coffee');
+   const [selectedCategory, setSelectedCategory] = useState<'Coffee' | 'Milk Tea' | 'Frappe'>('Coffee'); // Update default category
    const [cart, setCart] = useState<CartItem[]>([]);
    const [orderDetails, setOrderDetails] = useState<OrderDetails>({
       name: '',
@@ -83,13 +83,17 @@ const App: React.FC = () => {
       { name: "Taro", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
       { name: "Brown Sugar", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
       { name: "Matcha", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
+      { name: "Chocolate", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } }, // New Frappe products
+      { name: "Caramel", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
+      { name: "Vanilla", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
+      { name: "Mocha", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
    ];
 
    const addons: Addon[] = [
       { id: 'pearls', name: 'Pearls', price: 5 },
       { id: 'whipped_cream', name: 'Whipped Cream', price: 5 },
       { id: 'cream_cheese', name: 'Cream Cheese', price: 5 },
-      { id: 'nata_jelly', name: 'Nata_Jelly', price: 5 },
+      { id: 'nata_jelly', name: 'Nata Jelly', price: 5 },
    ];
 
    // Product component
@@ -351,11 +355,12 @@ const App: React.FC = () => {
                      <h1 className="mr-4 font-semibold">Category</h1>
                      <select
                         value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value as 'Coffee' | 'Milk Tea')}
+                        onChange={(e) => setSelectedCategory(e.target.value as 'Coffee' | 'Milk Tea' | 'Frappe')} // Update category selection
                         className="border cursor-pointer bg-white border-neutral-300 py-2 px-3 rounded-md font-medium"
                      >
                         <option value="Coffee">Coffee</option>
                         <option value="Milk Tea">Milk Tea</option>
+                        <option value="Frappe">Frappe</option> {/* Add Frappe option */}
                      </select>
                   </div>
                   <div className='bg-white rounded-full p-[10px] cursor-pointer' onClick={() => setIsCartModalOpen(true)}>
