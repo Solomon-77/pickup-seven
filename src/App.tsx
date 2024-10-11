@@ -232,6 +232,13 @@ const App: React.FC = () => {
          }));
       };
 
+      const handleRemoveFromCart = (index: number) => {
+         const confirmRemove = window.confirm("Are you sure you want to remove this item from the cart?");
+         if (confirmRemove) {
+            setCart(prevCart => prevCart.filter((_, i) => i !== index));
+         }
+      };
+
       const handlePlaceOrder = () => {
          setOrderDetails(localDetails);  // Only update the main state when placing the order.
          console.log('Order placed:', { cart, orderDetails: localDetails, total: calculateCartTotal() });
@@ -257,6 +264,7 @@ const App: React.FC = () => {
                      <p>Size: {item.size}</p>
                      <p>Add-ons: {item.addons.join(', ') || 'None'}</p>
                      <p>Item Total: P{calculateItemTotal(item).toFixed(2)}</p>
+                     <button onClick={() => handleRemoveFromCart(index)} className="text-red-600 underline">Remove</button>
                   </div>
                ))}
                <div className="font-bold mb-4">
