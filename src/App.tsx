@@ -10,6 +10,10 @@ import classic from "./assets/classic.png"
 import taro from "./assets/taro.png"
 import brownsugar from "./assets/brownsugar.png"
 import matcha from "./assets/matcha.png"
+import chocolate from "./assets/chocolate.png"
+import caramel from "./assets/latte.png"
+import vanilla from "./assets/vanilla.png"
+import mochafrappe from "./assets/mochafrappe.png"
 import { FaCartShopping } from "react-icons/fa6";
 
 interface Product {
@@ -87,10 +91,10 @@ const App: React.FC = () => {
       { name: "Taro", image: taro, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
       { name: "Brown Sugar", image: brownsugar, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
       { name: "Matcha", image: matcha, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
-      { name: "Chocolate", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } }, // New Frappe products
-      { name: "Caramel", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
-      { name: "Vanilla", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
-      { name: "Mocha", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
+      { name: "Chocolate", image: chocolate, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } }, // New Frappe products
+      { name: "Caramel", image: caramel, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
+      { name: "Vanilla", image: vanilla, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
+      { name: "Mocha", image: mochafrappe, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
    ];
 
    const addons: Addon[] = [
