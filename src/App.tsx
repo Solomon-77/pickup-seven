@@ -11,7 +11,7 @@ import taro from "./assets/taro.png"
 import brownsugar from "./assets/brownsugar.png"
 import matcha from "./assets/matcha.png"
 import chocolate from "./assets/chocolate.png"
-import caramel from "./assets/latte.png"
+import caramel from "./assets/caramel.png"
 import vanilla from "./assets/vanilla.png"
 import mochafrappe from "./assets/mochafrappe.png"
 import { FaCartShopping } from "react-icons/fa6";
