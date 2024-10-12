@@ -342,7 +342,7 @@ const App: React.FC = () => {
                <ul>
                   <li>
                      <button onClick={() => setIsStatusModalOpen(true)} className="hover:underline cursor-pointer">
-                        Status
+                        Order Status
                      </button>
                   </li>
                </ul>
