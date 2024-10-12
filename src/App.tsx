@@ -56,6 +56,8 @@ interface OrderStatus {
    orderId: string;
    status: 'Preparing' | 'Ready for Pickup' | 'Completed';
    estimatedTime: number;
+   name: string;
+   phoneNumber: string;
 }
 
 const App: React.FC = () => {
@@ -165,6 +167,8 @@ const App: React.FC = () => {
                   <p>Order ID: {orderStatus.orderId}</p>
                   <p>Status: {orderStatus.status}</p>
                   <p>Estimated Time: {orderStatus.estimatedTime} minutes</p>
+                  <p>Name: {orderStatus.name}</p>
+                  <p>Phone Number: {orderStatus.phoneNumber}</p>
                </>
             ) : (
                <p>No active order found.</p>
@@ -234,7 +238,8 @@ const App: React.FC = () => {
    );
 
    const CartModal: React.FC = () => {
-      const [localDetails, setLocalDetails] = useState(orderDetails); // Create a local state to handle form inputs.
+      const [localDetails, setLocalDetails] = useState(orderDetails);
+      const [errors, setErrors] = useState({ name: '', phoneNumber: '' });
 
       const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
          const { name, value } = e.target;
@@ -242,6 +247,10 @@ const App: React.FC = () => {
             ...prevState,
             [name]: value,
          }));
+         // Clear error when user starts typing
+         if (errors[name as keyof typeof errors]) {
+            setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+         }
       };
 
       const handleRemoveFromCart = (index: number) => {
@@ -251,18 +260,40 @@ const App: React.FC = () => {
          }
       };
 
+      const validateForm = () => {
+         let isValid = true;
+         const newErrors = { name: '', phoneNumber: '' };
+
+         if (!localDetails.name.trim()) {
+            newErrors.name = 'Name is required';
+            isValid = false;
+         }
+
+         if (!localDetails.phoneNumber.trim()) {
+            newErrors.phoneNumber = 'Phone Number is required';
+            isValid = false;
+         }
+
+         setErrors(newErrors);
+         return isValid;
+      };
+
       const handlePlaceOrder = () => {
-         setOrderDetails(localDetails);  // Only update the main state when placing the order.
-         console.log('Order placed:', { cart, orderDetails: localDetails, total: calculateCartTotal() });
-         const newOrderStatus: OrderStatus = {
-            orderId: Math.random().toString(36).substr(2, 9),
-            status: 'Preparing',
-            estimatedTime: parseInt(localDetails.pickupTime),
-         };
-         setOrderStatus(newOrderStatus);
-         setCart([]);
-         setIsCartModalOpen(false);
-         resetSelections();
+         if (validateForm()) {
+            setOrderDetails(localDetails);
+            console.log('Order placed:', { cart, orderDetails: localDetails, total: calculateCartTotal() });
+            const newOrderStatus: OrderStatus = {
+               orderId: Math.random().toString(36).substr(2, 9),
+               status: 'Preparing',
+               estimatedTime: parseInt(localDetails.pickupTime),
+               name: localDetails.name,
+               phoneNumber: localDetails.phoneNumber,
+            };
+            setOrderStatus(newOrderStatus);
+            setCart([]);
+            setIsCartModalOpen(false);
+            resetSelections();
+         }
       };
 
       return (
@@ -283,24 +314,28 @@ const App: React.FC = () => {
                   Total: P{calculateCartTotal().toFixed(2)}
                </div>
                <div className="mb-4">
-                  <label className="block mb-2">Name:</label>
+                  <label className="block mb-2">Name: <span className="text-red-500">*</span></label>
                   <input
                      type="text"
                      name="name"
                      value={localDetails.name}
                      onChange={handleInputChange}
-                     className="w-full border rounded p-2"
+                     className={`w-full border rounded p-2 ${errors.name ? 'border-red-500' : ''}`}
+                     required
                   />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                </div>
                <div className="mb-4">
-                  <label className="block mb-2">Phone Number:</label>
+                  <label className="block mb-2">Phone Number: <span className="text-red-500">*</span></label>
                   <input
                      type="tel"
                      name="phoneNumber"
                      value={localDetails.phoneNumber}
                      onChange={handleInputChange}
-                     className="w-full border rounded p-2"
+                     className={`w-full border rounded p-2 ${errors.phoneNumber ? 'border-red-500' : ''}`}
+                     required
                   />
+                  {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
                </div>
                <div className="mb-4">
                   <label className="block mb-2">Payment Mode:</label>
@@ -311,7 +346,7 @@ const App: React.FC = () => {
                      className="w-full border rounded p-2"
                   >
                      <option value="Cash">Cash</option>
-                     <option value="Card">Card</option>
+                     <option value="E-Wallet">E-Wallet</option>
                   </select>
                </div>
                <div className="mb-4">
