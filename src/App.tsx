@@ -6,6 +6,10 @@ import cappucino from "./assets/cappucino.png"
 import espresso from "./assets/espresso.png"
 import machiatto from './assets/machiatto.png'
 import mocha from "./assets/mocha.png"
+import classic from "./assets/classic.png"
+import taro from "./assets/taro.png"
+import brownsugar from "./assets/brownsugar.png"
+import matcha from "./assets/matcha.png"
 import { FaCartShopping } from "react-icons/fa6";
 
 interface Product {
@@ -79,10 +83,10 @@ const App: React.FC = () => {
       { name: "Espresso", image: espresso, category: 'Coffee', prices: { S: 28, M: 38, L: 48 } },
       { name: "Macchiato", image: machiatto, category: 'Coffee', prices: { S: 28, M: 38, L: 48 } },
       { name: "Mocha", image: mocha, category: 'Coffee', prices: { S: 28, M: 38, L: 48 } },
-      { name: "Classic", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
-      { name: "Taro", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
-      { name: "Brown Sugar", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
-      { name: "Matcha", image: butterscotch, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
+      { name: "Classic", image: classic, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
+      { name: "Taro", image: taro, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
+      { name: "Brown Sugar", image: brownsugar, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
+      { name: "Matcha", image: matcha, category: 'Milk Tea', prices: { S: 28, M: 38, L: 48 } },
       { name: "Chocolate", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } }, // New Frappe products
       { name: "Caramel", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
       { name: "Vanilla", image: butterscotch, category: 'Frappe', prices: { S: 40, M: 50, L: 60 } },
