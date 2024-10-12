@@ -58,6 +58,8 @@ interface OrderStatus {
    estimatedTime: number;
    name: string;
    phoneNumber: string;
+   totalPayment: number;
+   paymentMode: string;
 }
 
 const App: React.FC = () => {
@@ -169,6 +171,8 @@ const App: React.FC = () => {
                   <p>Estimated Time: {orderStatus.estimatedTime} minutes</p>
                   <p>Name: {orderStatus.name}</p>
                   <p>Phone Number: {orderStatus.phoneNumber}</p>
+                  <p>Total Payment: P{orderStatus.totalPayment.toFixed(2)}</p>
+                  <p>Payment Mode: {orderStatus.paymentMode}</p>
                </>
             ) : (
                <p>No active order found.</p>
@@ -281,13 +285,16 @@ const App: React.FC = () => {
       const handlePlaceOrder = () => {
          if (validateForm()) {
             setOrderDetails(localDetails);
-            console.log('Order placed:', { cart, orderDetails: localDetails, total: calculateCartTotal() });
+            const totalPayment = calculateCartTotal();
+            console.log('Order placed:', { cart, orderDetails: localDetails, total: totalPayment });
             const newOrderStatus: OrderStatus = {
                orderId: Math.random().toString(36).substr(2, 9),
                status: 'Preparing',
                estimatedTime: parseInt(localDetails.pickupTime),
                name: localDetails.name,
                phoneNumber: localDetails.phoneNumber,
+               totalPayment: totalPayment,
+               paymentMode: localDetails.paymentMode,
             };
             setOrderStatus(newOrderStatus);
             setCart([]);
